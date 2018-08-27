@@ -16,7 +16,7 @@ public class GameManager : Singleton<GameManager>
     public float score;
     public bool playing;
 
-    [Header("More Game Stuff")]
+    [Header("Example Game Stuff")]
     [Range(0, 100)]
     public int awesomeLevel;
     [ReadOnly]
@@ -51,7 +51,7 @@ public class GameManager : Singleton<GameManager>
     {
         PoolManager.Instance.CreatePools();
 
-        SoundManager.Instance.PlayMusic(0.9f);
+        SoundManager.Instance.PlayMusic();
 
         ResetGameState();
 
@@ -115,7 +115,7 @@ public class GameManager : Singleton<GameManager>
         Debug.Log("[GameManger] GAME START");
 
         playing = true;
-        SoundManager.Instance.SetMusicPitch(1.0f);
+        SoundManager.Instance.SetMusicPitch(1.1f);
 
         ShowInGameHud();
     }
@@ -127,9 +127,38 @@ public class GameManager : Singleton<GameManager>
         playing = false;
         finalScoreText.text = "Score:\n" + Mathf.Floor(score);
 
-        SoundManager.Instance.SetMusicPitch(0.9f);
+        SoundManager.Instance.SetMusicPitch(1.0f);
 
         ShowGameOverMenu();
+    }
+
+    public void GamePause()
+    {
+        Debug.Log("[GameManger] GAME PAUSED");
+
+        Time.timeScale = 0;
+        playing = false;
+        SoundManager.Instance.SetMusicPitch(1.0f);
+
+        ShowPauseMenu();
+    }
+
+    public void GameUnpause()
+    {
+        Debug.Log("[GameManger] GAME RESUME");
+
+        Time.timeScale = 1;
+        playing = true;
+        SoundManager.Instance.SetMusicPitch(1.1f);
+
+        ShowInGameHud();
+    }
+
+    public void QuitApp()
+    {
+        Debug.Log("[GameManger] QUIT APPLICATION");
+
+        Application.Quit();
     }
 
     public void ResetGameState()
@@ -142,34 +171,6 @@ public class GameManager : Singleton<GameManager>
         PoolManager.Instance.ReleaseAllObjects();
     }
 
-    public void GamePause()
-    {
-        Debug.Log("[GameManger] GAME PAUSED");
-
-        Time.timeScale = 0;
-        playing = false;
-        SoundManager.Instance.SetMusicPitch(0.9f);
-
-        ShowPauseMenu();
-    }
-
-    public void GameUnpause()
-    {
-        Debug.Log("[GameManger] GAME RESUME");
-
-        Time.timeScale = 1;
-        playing = true;
-        SoundManager.Instance.SetMusicPitch(1.0f);
-
-        ShowInGameHud();
-    }
-
-    public void QuitApp()
-    {
-        Debug.Log("[GameManger] QUIT APPLICATION");
-
-        Application.Quit();
-    }
 
     #endregion
 

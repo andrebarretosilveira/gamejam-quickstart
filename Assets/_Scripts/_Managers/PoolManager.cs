@@ -176,7 +176,7 @@ public class PoolManager : Singleton<PoolManager>
 
     /// <summary>
     /// Deactivates all game objects kept in all pools.
-    /// All objects will become available.
+    /// All objects become available.
     /// </summary>
     public void ReleaseAllObjects()
     {
@@ -187,6 +187,27 @@ public class PoolManager : Singleton<PoolManager>
 
         instanceLookup.Clear();
         dirty = true;
+    }
+
+    /// <summary>
+    /// Deactivates all objects of the given <see cref="PoolObject"/> type.
+    /// These objects become available.
+    /// </summary>
+    /// <param name="poolObject"></param>
+    public void ReleaseAllObjectsOfType(PoolObject poolObject)
+    {
+        if ((int)poolObject >= objPrefabs.Count)
+            throw new Exception("PoolObject '" + poolObject + "' defined but does not" +
+                " have a pool. Try updating the pools in the PoolManager's inspector.");
+
+        var prefab = objPrefabs[(int)poolObject];
+        var pool = prefabLookup[prefab];
+
+        foreach (var usedClone in pool.GetUsedList())
+        {
+            ReleaseObject(usedClone);
+        }
+
     }
 
 

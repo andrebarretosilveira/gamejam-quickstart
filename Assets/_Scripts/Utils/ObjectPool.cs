@@ -86,7 +86,7 @@ namespace MonsterLove.Collections
 			if (lookup.ContainsKey(item))
 			{
 				var container = lookup[item];
-				container.Release();
+                container.Release();
 				lookup.Remove(item);
 			}
 			else
@@ -94,6 +94,19 @@ namespace MonsterLove.Collections
 				Debug.LogWarning("[ObjectPool] This object pool does not contain the item provided: " + item);
 			}
 		}
+
+        public List<T> GetUsedList()
+        {
+            var inUseClones = new List<T>();
+
+            for (int i = 0; i < list.Count; i++)
+            {
+                if(list[i].Used)
+                    inUseClones.Add(list[i].Item);
+            }
+
+            return inUseClones;
+        }
 
 		public int Count
 		{
