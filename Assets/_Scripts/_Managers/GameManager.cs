@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DigitalRuby.SoundManagerNamespace;
 using UnityEngine.UI;
 
 /// <summary>
@@ -15,17 +14,6 @@ public class GameManager : Singleton<GameManager>
     public Player player;
     public float score;
     public bool playing;
-
-    [Header("Example Game Stuff")]
-    [Range(0, 100)]
-    public int awesomeLevel;
-    [ReadOnly]
-    public bool greatGame = true;
-    [Space]
-    public bool recomendThis;
-    [ConditionalHide("recomendThis")]
-    public string tellUsWhy;
-
 
     [Header("UI Elements")]
     public GameObject canvas;
