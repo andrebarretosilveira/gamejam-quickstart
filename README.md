@@ -29,6 +29,6 @@ To build this up, I got some good stuff from some nice guys:
 * The **Pool Manager** uses a slightly modified thefuntastic's [Unity object pool](https://github.com/thefuntastic/unity-object-pool).
 * The **Sound Manager** set up used Jeff Johnson's [Sound Manager](https://assetstore.unity.com/packages/tools/audio/sound-manager-audio-sound-and-music-manager-for-unity-56087), available at the Unity's Asset Store.
 * Those cool **icons** are from [https://game-icons.net](https://game-icons.net/).
-* The **title art** was created using this [retro wave title generator](https://photofunia.com/effects/retro-wave) thing.
+* The **title art** was created using this ['flaming' logo generator](https://flamingtext.com/) thing.
 * The **music** is [CaesarBoston's artwork](https://soundcloud.com/caesarboston/exploration-preview), available for free at the [Asset Store](https://assetstore.unity.com/packages/audio/music/retro-style-video-game-music-47825)
 * And I used [Bfxr](https://www.bfxr.net/) to make the simple but cool **sound effects** (try it out).
