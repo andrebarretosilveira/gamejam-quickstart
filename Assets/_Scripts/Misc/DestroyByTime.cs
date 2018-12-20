@@ -25,7 +25,7 @@ public class DestroyByTime : MonoBehaviour
 
         obj.SetActive(false);
 
-        //GameManager.PoolManager.ReleaseObject(this.gameObject);
+        //PoolManager.Instance.ReleaseObject(this.gameObject);
     }
 
 }

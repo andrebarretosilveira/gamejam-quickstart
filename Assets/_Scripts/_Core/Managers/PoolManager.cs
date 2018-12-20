@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using Euchromata.Core.Sets;
 using Euchromata.Core.Variables;
@@ -7,10 +5,19 @@ using UnityEngine;
 
 public class PoolManager : MonoBehaviour
 {
+    public static PoolManager Instance;
+    [Space]
     public PoolObjectsSet PoolObjsSet;
     public Transform PoolObjsParent;
 
     private Dictionary<PoolObject, List<GameObject>> Pool;
+
+
+    private void Awake()
+    {
+        if (Instance == null) { Instance = this; }
+        else { Destroy(this.gameObject); }
+    }
 
     private void Start()
     {
@@ -45,7 +52,7 @@ public class PoolManager : MonoBehaviour
             "with (" + poolObj.Amount + ") clones");
     }
 
-    public GameObject GetInstance(PoolObject poolObj)
+    public GameObject GetClone(PoolObject poolObj)
     {
         if (!Pool.ContainsKey(poolObj))
         {

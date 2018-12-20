@@ -19,10 +19,6 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 
-using System;
-using System.Security.Cryptography;
-using System.Text;
-
 
 public class Example_ZPlayerPrefs : MonoBehaviour
 {

@@ -1,8 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour
 {
@@ -15,19 +12,10 @@ public class MenuManager : MonoBehaviour
     public GameObject mainMenu;
     public GameObject optionsMenu;
     public GameObject creditsMenu;
-    [Space]
-    public Slider musicSlider;
-    public Slider sfxSlider;
-    [Space]
-    public Image musicImage;
-    public Image sfxImage;
-    public Sprite musicOnSprite;
-    public Sprite musicOffSprite;
-    public Sprite sfxOnSprite;
-    public Sprite sfxOffSprite;
 
     #endregion
 
+    //-----
     #region Core Functions
 
     private void Start()
@@ -36,14 +24,9 @@ public class MenuManager : MonoBehaviour
 
         canvas.SetActive(true);
 
-        GameManager.SoundManager.PlayMusic();
+        SoundManager.Instance.PlayMusic();
 
         ShowMainMenu();
-    }
-
-    private void Update()
-    {
-        UpdateAudioSprites();
     }
 
     #endregion
@@ -90,34 +73,10 @@ public class MenuManager : MonoBehaviour
 
     public void ShowOptionsMenu()
     {
-        sfxSlider.value = GameManager.SoundManager.GetSfxVol();
-        musicSlider.value = GameManager.SoundManager.GetMusicVol();
-
         optionsMenu.SetActive(true);
 
         mainMenu.SetActive(false);
         creditsMenu.SetActive(false);
-    }
-
-    private void UpdateAudioSprites()
-    {
-        if (SoundManagerBase.MusicVolume == 0)
-        {
-            musicImage.sprite = musicOffSprite;
-        }
-        else
-        {
-            musicImage.sprite = musicOnSprite;
-        }
-
-        if (SoundManagerBase.SoundVolume == 0)
-        {
-            sfxImage.sprite = sfxOffSprite;
-        }
-        else
-        {
-            sfxImage.sprite = sfxOnSprite;
-        }
     }
 
     #endregion

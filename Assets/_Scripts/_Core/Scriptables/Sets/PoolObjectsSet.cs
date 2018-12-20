@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Euchromata.Core.Variables;
 using UnityEngine;
 

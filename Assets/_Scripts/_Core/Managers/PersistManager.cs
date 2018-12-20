@@ -1,13 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PersistManager : MonoBehaviour
 {
+    public static PersistManager Instance;
+
+
+    //-----
     #region Core Functions
 
     private void Awake()
     {
+        if (Instance == null) { Instance = this; }
+        else { Destroy(this.gameObject); }
+
         ZPlayerPrefs.Initialize("whatislove", "b4b1d0nthurtm3");
     }
 
@@ -16,28 +21,32 @@ public class PersistManager : MonoBehaviour
     //-----
     #region Save/Load Procedures
 
-    public void LoadProgress()
-    {
-    }
-
-    public void LoadConfig()
-    {
-        var sfxVol = ZPlayerPrefs.GetFloat("SfxVol");
-        var musicVol = ZPlayerPrefs.GetFloat("MusicVol");
-
-        GameManager.SoundManager.SetSfxVol(sfxVol);
-        GameManager.SoundManager.SetMusicVol(musicVol);
-    }
-
     public void SaveProgress()
     {
     }
 
-    public void SaveConfig()
+    public void LoadProgress()
     {
-        ZPlayerPrefs.SetFloat("SfxVol", GameManager.SoundManager.GetSfxVol());
-        ZPlayerPrefs.SetFloat("MusicVol", GameManager.SoundManager.GetMusicVol());
+    }
+
+    public void SaveSettings()
+    {
+        ZPlayerPrefs.SetFloat(SoundManager.Instance.SfxVolParameter,
+            SoundManager.Instance.GetSfxVol());
+
+        ZPlayerPrefs.SetFloat(SoundManager.Instance.MusicVolParameter,
+            SoundManager.Instance.GetMusicVol());
+
         ZPlayerPrefs.Save();
+    }
+
+    public void LoadSettings()
+    {
+        var sfxVol = ZPlayerPrefs.GetFloat(SoundManager.Instance.SfxVolParameter, 0.5f);
+        var musicVol = ZPlayerPrefs.GetFloat(SoundManager.Instance.MusicVolParameter, 0.5f);
+
+        SoundManager.Instance.SetSfxVol(sfxVol);
+        SoundManager.Instance.SetMusicVol(musicVol);
     }
 
     public void ClearAllData()

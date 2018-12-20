@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class SfxPlayer : MonoBehaviour
 {
@@ -20,12 +18,12 @@ public class SfxPlayer : MonoBehaviour
 	{
 		if(singleSfx)
 		{
-			GameManager.SoundManager.PlaySfx(sfx);
+			SoundManager.Instance.PlaySfx(sfx);
 		}
 		else if (randomSfx)
 		{
 			AudioClip randomSfx = sfxs[Random.Range(0, sfxs.Length)];
-			GameManager.SoundManager.PlaySfx(randomSfx);
+			SoundManager.Instance.PlaySfx(randomSfx);
 		}
 		
 	}

@@ -1,7 +1,6 @@
 ﻿using Euchromata.Core.Variables;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class ScoreTextUpdater : MonoBehaviour
 {

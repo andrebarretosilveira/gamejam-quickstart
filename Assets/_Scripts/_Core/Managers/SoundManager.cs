@@ -1,19 +1,128 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Audio;
-using UnityEngine.UI;
 
 public class SoundManager : MonoBehaviour
 {
-    public AudioSource musicAudioSource;
-    public AudioSource sfxAudioSource;
+    public static SoundManager Instance;
+
+    [Header("Audio Mixer")]
+    public AudioMixer Mixer;
+    public string MasterVolParameter;
+    public string MusicVolParameter;
+    public string SfxVolParameter;
+
+    [Header("Default AudioSources")]
+    public AudioSource MusicAudioSource;
+    public AudioSource SfxAudioSource;
+
+
+    //-----
+    #region Core Functions
+
+    private void Awake()
+    {
+        if (Instance == null) { Instance = this; }
+        else { Destroy(this.gameObject); }
+    }
+
+    #endregion
+
+
+    //-----
+    #region Audio Setting Methods
+
+    /// <summary>
+    /// Sets an exposed Audio Mixer parameter value.
+    /// This functions expects values in the range [0,1]
+    /// </summary>
+    /// <param name="exposedParam">Exposed parameter's name.</param>
+    /// <param name="value">The parameter's new value.</param>
+    private void SetExposedParam(string exposedParam, float value)
+    {
+        value = value > 0 ? value : 0.00001f;
+
+        Mixer.SetFloat(exposedParam, Mathf.Log10(value) * 20);
+    }
+
+    /// <summary>
+    /// Retrieves an exposed Audio Mixer parameter value between [0,1].
+    /// </summary>
+    /// <param name="exposedParam">Exposed parameter's name.</param>
+    /// <returns>The paramete's current value.</returns>
+    private float GetExposedParam(string exposedParam)
+    {
+        float value;
+
+        Mixer.GetFloat(exposedParam, out value);
+
+        return Mathf.Pow(10, value / 20);
+    }
+
+    /// <summary>
+    /// Updates the SFX volume.
+    /// This functions expects values in the range [0,1]
+    /// </summary>
+    /// <param name="value">The new SFX volume.</param>
+    public void SetSfxVol(float value)
+    {
+        SetExposedParam(SfxVolParameter, value);
+    }
+
+    /// <summary>
+    /// Updates the Music volume.
+    /// This functions expects values in the range [0,1]
+    /// </summary>
+    /// <param name="value">The new Music volume.</param>
+    public void SetMusicVol(float value)
+    {
+        SetExposedParam(MusicVolParameter, value);
+    }
+
+    /// <summary>
+    /// Updates the Master volume.
+    /// This functions expects values in the range [0,1]
+    /// </summary>
+    /// <param name="value">The new Master volume.</param>
+    public void SetMasterVol(float value)
+    {
+        SetExposedParam(MasterVolParameter, value);
+    }
+
+    /// <summary>
+    /// Returns the SFX volume between [0,1].
+    /// </summary>
+    public float GetSfxVol()
+    {
+        return GetExposedParam(SfxVolParameter);
+    }
+
+    /// <summary>
+    /// Returns the Music volume between [0,1].
+    /// </summary>
+    public float GetMusicVol()
+    {
+        return GetExposedParam(MusicVolParameter);
+    }
+
+    /// <summary>
+    /// Returns the Master volume between [0,1].
+    /// </summary>
+    public float GetMasterVol()
+    {
+        return GetExposedParam(MasterVolParameter);
+    }
+
+    #endregion
+
+    //-----
+    #region Audio Playback Methods
 
     /// <summary>
     /// Plays the audio clip defined in the main SFX audio source.
     /// </summary>
     public void PlaySfx()
     {
-        PlaySfx(sfxAudioSource.clip, 1.0f, 1.0f);
+        PlaySfx(SfxAudioSource.clip, 1.0f);
     }
 
     /// <summary>
@@ -22,7 +131,7 @@ public class SoundManager : MonoBehaviour
     /// <param name="pitch">The desired pitch.</param>
     public void PlaySfx(float pitch)
     {
-        PlaySfx(sfxAudioSource.clip, pitch, 1.0f);
+        PlaySfx(SfxAudioSource.clip, pitch);
     }
 
     /// <summary>
@@ -31,37 +140,26 @@ public class SoundManager : MonoBehaviour
     /// <param name="audioClip">The desired audio clip.</param>
     public void PlaySfx(AudioClip audioClip)
     {
-        PlaySfx(audioClip, 1.0f, 1.0f);
+        PlaySfx(audioClip, 1.0f);
     }
 
     /// <summary>
-    /// Plays a given audio clip through the main SFX audio source with a given pitch.
+    /// Plays a given audio clip through the main SFX audio source
+    /// with a given pitch.
     /// </summary>
     /// <param name="audioClip">The desired audio clip.</param>
     /// <param name="pitch">The desired pitch.</param>
     public void PlaySfx(AudioClip audioClip, float pitch)
     {
-        PlaySfx(audioClip, pitch, 1.0f);
-    }
-
-    /// <summary>
-    /// Plays a given audio clip through the main SFX audio source
-    /// with a given pitch and a volume scale multiplier.
-    /// </summary>
-    /// <param name="audioClip">The desired audio clip.</param>
-    /// <param name="pitch">The desired pitch.</param>
-    /// <param name="volumeScale">The volume scale multiplier.</param>
-    public void PlaySfx(AudioClip audioClip, float pitch, float volumeScale)
-    {
-        sfxAudioSource.clip = audioClip;
-        if (sfxAudioSource.clip == null)
+        SfxAudioSource.clip = audioClip;
+        if (SfxAudioSource.clip == null)
         {
             Debug.LogError("[SoundManager] trying to play null audioclip. Aborted.");
             return;
         }
 
-        sfxAudioSource.pitch = pitch;
-        sfxAudioSource.PlayOneShotSoundManaged(audioClip, volumeScale);
+        SfxAudioSource.pitch = pitch;
+        SfxAudioSource.PlayOneShot(audioClip);
     }
 
     /// <summary>
@@ -69,7 +167,7 @@ public class SoundManager : MonoBehaviour
     /// </summary>
     public void PlayMusic()
     {
-        PlayMusic(musicAudioSource.clip, 1.0f, 1.0f, 0.2f, false);
+        PlayMusic(MusicAudioSource.clip, 1.0f, 0.1f, false);
     }
 
     /// <summary>
@@ -79,7 +177,7 @@ public class SoundManager : MonoBehaviour
     /// <param name="pitch">The desired pitch.</param>
     public void PlayMusic(float pitch)
     {
-        PlayMusic(musicAudioSource.clip, pitch, 1.0f, 0.2f, false);
+        PlayMusic(MusicAudioSource.clip, pitch, 0.1f, false);
     }
 
     /// <summary>
@@ -88,7 +186,7 @@ public class SoundManager : MonoBehaviour
     /// <param name="musicClip">The desired audio clip.</param>
     public void PlayMusic(AudioClip musicClip)
     {
-        PlayMusic(musicClip, 1.0f, 1.0f, 0.2f, false);
+        PlayMusic(musicClip, 1.0f, 0.1f, false);
     }
 
     /// <summary>
@@ -99,25 +197,25 @@ public class SoundManager : MonoBehaviour
     /// <param name="pitch">The desired pitch.</param>
     public void PlayMusic(AudioClip musicClip, float pitch)
     {
-        PlayMusic(musicClip, pitch, 1.0f, 0.2f, false);
+        PlayMusic(musicClip, pitch, 0.1f, false);
     }
 
     /// <summary>
     /// Plays a given audio clip through the main Music audio source
-    /// with a given pitch, volume scale multiplier and a fade in time.
+    /// with a given pitch and a fade in time.
     /// </summary>
-    /// <param name="musicClip"></param>
-    /// <param name="pitch"></param>
-    /// <param name="volumeScale"></param>
-    /// <param name="fadeInSecs"></param>
-    /// <param name="persistOnLoad"></param>
-    public void PlayMusic(AudioClip musicClip, float pitch, float volumeScale,
+    /// <param name="musicClip">The desired audio clip.</param>
+    /// <param name="pitch">The desired pitch.</param>
+    /// <param name="fadeInSecs">The desired fade-in time</param>
+    public void PlayMusic(AudioClip musicClip, float pitch,
         float fadeInSecs, bool persistOnLoad)
     {
-        musicAudioSource.clip = musicClip;
-        musicAudioSource.pitch = pitch;
+        MusicAudioSource.clip = musicClip;
+        MusicAudioSource.pitch = pitch;
+        MusicAudioSource.loop = true;
 
-        musicAudioSource.PlayLoopingMusicManaged(volumeScale, fadeInSecs, persistOnLoad);
+        //MusicAudioSource.PlayLoopingMusicManaged(1.0f, fadeInSecs, persistOnLoad);
+        MusicAudioSource.Play();
     }
 
     /// <summary>
@@ -125,7 +223,7 @@ public class SoundManager : MonoBehaviour
     /// </summary>
     public void StopMusic()
     {
-        musicAudioSource.StopLoopingMusicManaged();
+        MusicAudioSource.Stop();
     }
 
     /// <summary>
@@ -133,7 +231,7 @@ public class SoundManager : MonoBehaviour
     /// </summary>
     public void PauseMusic()
     {
-        musicAudioSource.Pause();
+        MusicAudioSource.Pause();
     }
 
     /// <summary>
@@ -141,7 +239,7 @@ public class SoundManager : MonoBehaviour
     /// </summary>
     public void UnPauseMusic()
     {
-        musicAudioSource.UnPause();
+        MusicAudioSource.UnPause();
     }
 
     /// <summary>
@@ -151,39 +249,8 @@ public class SoundManager : MonoBehaviour
     /// <param name="pitch"></param>
     public void SetMusicPitch(float pitch)
     {
-        musicAudioSource.pitch = pitch;
+        MusicAudioSource.pitch = pitch;
     }
 
-    /// <summary>
-    /// Updates the global SFX volume setting.
-    /// </summary>
-    public void SetSfxVol(float value)
-    {
-        SoundManagerBase.SoundVolume = value;
-    }
-
-    /// <summary>
-    /// Updates the global Music volume setting.
-    /// </summary>
-    public void SetMusicVol(float value)
-    {
-        SoundManagerBase.MusicVolume = value;
-    }
-
-    /// <summary>
-    /// Returns the global Sfx volume setting.
-    /// </summary>
-    public float GetSfxVol()
-    {
-        return SoundManagerBase.SoundVolume;
-    }
-
-    /// <summary>
-    /// Returns the global Music volume setting.
-    /// </summary>
-    public float GetMusicVol()
-    {
-        return SoundManagerBase.MusicVolume;
-    }
-
+    #endregion
 }

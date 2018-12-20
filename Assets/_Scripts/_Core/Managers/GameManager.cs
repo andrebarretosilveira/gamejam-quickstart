@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
 
 public class GameManager : MonoBehaviour
@@ -11,9 +7,6 @@ public class GameManager : MonoBehaviour
     #region Parameters
 
     public static GameManager Instance;
-    public static SoundManager SoundManager;
-    public static PoolManager PoolManager;
-    public static PersistManager PersistManager;
 
     #endregion
 
@@ -22,19 +15,6 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        if (SoundManager == null)
-        {
-            SoundManager = GetComponentInChildren<SoundManager>();
-        }
-        if (PoolManager == null)
-        {
-            PoolManager = GetComponentInChildren<PoolManager>();
-        }
-        if (PersistManager == null)
-        {
-            PersistManager = GetComponentInChildren<PersistManager>();
-        }
-
         if (Instance == null)
         {
             Instance = this;
@@ -45,15 +25,15 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        SoundManager.PlayMusic();
+        PersistManager.Instance.LoadSettings();
+        //PersistManager.Instance.LoadProgress();
 
-        // PersistManager.LoadProgress();
-        // PersistManager.LoadConfig();
+        SoundManager.Instance.PlayMusic();
     }
 
     private void OnDisable()
     {
-        // PersistManager.SaveConfig();
+        PersistManager.Instance.SaveSettings();
         // PersistManager.SaveProgress();
     }
 

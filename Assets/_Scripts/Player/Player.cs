@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Euchromata.Core.Variables;
+﻿using Euchromata.Core.Variables;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -27,14 +25,14 @@ public class Player : MonoBehaviour
 
             // var circle = CircleToSpawn.GetInstance();
             int rnd = Random.Range(0, circlesPoolObjs.Length);
-            GameObject circle = GameManager.PoolManager.GetInstance(circlesPoolObjs[rnd]);
+            GameObject circle = PoolManager.Instance.GetClone(circlesPoolObjs[rnd]);
 
             if(circle == null) return;
             
             circle.transform.position = position;
             circle.SetActive(true);
 
-            GameManager.SoundManager.PlaySfx(ClickSfx);
+            SoundManager.Instance.PlaySfx(ClickSfx);
 
             MyScore.ApplyChange(+10);
         }

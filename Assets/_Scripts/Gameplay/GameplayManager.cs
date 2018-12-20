@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Euchromata.Core.Variables;
+﻿using Euchromata.Core.Variables;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
