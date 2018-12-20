@@ -28,6 +28,8 @@ public class GameManager : MonoBehaviour
         PersistManager.Instance.LoadSettings();
         //PersistManager.Instance.LoadProgress();
 
+        PoolManager.Instance.Initialize();
+
         SoundManager.Instance.PlayMusic();
     }
 

@@ -6,7 +6,9 @@ public class Player : MonoBehaviour
     public BoolVariable CanPlay;
     public FloatVariable MyScore;
     [Space]
-    public PoolObject[] circlesPoolObjs;
+    public PoolObject[] CirclesPoolObjs;
+    [Space]
+    public int ScorePerClick;
     [Space]
     public AudioClip ClickSfx;
 
@@ -24,8 +26,8 @@ public class Player : MonoBehaviour
             position = new Vector3(position.x, position.y, 0);
 
             // var circle = CircleToSpawn.GetInstance();
-            int rnd = Random.Range(0, circlesPoolObjs.Length);
-            GameObject circle = PoolManager.Instance.GetClone(circlesPoolObjs[rnd]);
+            int rnd = Random.Range(0, CirclesPoolObjs.Length);
+            GameObject circle = PoolManager.Instance.GetClone(CirclesPoolObjs[rnd]);
 
             if(circle == null) return;
             
@@ -34,7 +36,7 @@ public class Player : MonoBehaviour
 
             SoundManager.Instance.PlaySfx(ClickSfx);
 
-            MyScore.ApplyChange(+10);
+            MyScore.ApplyChange(+ScorePerClick);
         }
     }
 }

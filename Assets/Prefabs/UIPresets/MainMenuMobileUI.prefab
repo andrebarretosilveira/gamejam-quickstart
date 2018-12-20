@@ -2092,7 +2092,7 @@ GameObject:
   - component: {fileID: 4208383086700574438}
   - component: {fileID: 4208383086700574439}
   m_Layer: 0
-  m_Name: MenuManager
+  m_Name: MainMenuUIManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2124,10 +2124,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 149954a437fcc2543acc9fc8f3ace0db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvas: {fileID: 4208383086267805756}
-  mainMenu: {fileID: 4208383086570563485}
-  optionsMenu: {fileID: 4208383087233580075}
-  creditsMenu: {fileID: 4208383086791701024}
+  Canvas: {fileID: 4208383086267805756}
+  MainMenu: {fileID: 4208383086570563485}
+  OptionsMenu: {fileID: 4208383087233580075}
+  CreditsMenu: {fileID: 4208383086791701024}
 --- !u!1 &4208383086791701024
 GameObject:
   m_ObjectHideFlags: 0
@@ -2368,7 +2368,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -144.8, y: 25}
+  m_AnchoredPosition: {x: -144.8, y: 24.999992}
   m_SizeDelta: {x: 201, y: 181.2}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &4208383086845986136
@@ -2494,7 +2494,7 @@ GameObject:
   - component: {fileID: 4208383086888134984}
   - component: {fileID: 4208383086888134985}
   - component: {fileID: 4208383086888134838}
-  - component: {fileID: 4208383086888134987}
+  - component: {fileID: 514405242522441104}
   m_Layer: 5
   m_Name: QuitAppButton
   m_TagString: Untagged
@@ -2598,19 +2598,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4208383086700574439}
+      - m_Target: {fileID: 514405242522441104}
         m_MethodName: QuitApp
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 4208383086888134987}
-        m_MethodName: Play
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2622,7 +2611,7 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!114 &4208383086888134987
+--- !u!114 &514405242522441104
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2631,13 +2620,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 4208383086888134836}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16dafee19bab2fc498a11105ef8ee243, type: 3}
+  m_Script: {fileID: 11500000, guid: a901c0d3219548049b0002f3c262d7e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  singleSfx: 1
-  sfx: {fileID: 8300000, guid: cbb787456e78de54ba3ad0bc345bd98b, type: 3}
-  randomSfx: 0
-  sfxs: []
 --- !u!1 &4208383086889779697
 GameObject:
   m_ObjectHideFlags: 0
@@ -2870,6 +2855,7 @@ GameObject:
   - component: {fileID: 4208383087151775860}
   - component: {fileID: 4208383087151775861}
   - component: {fileID: 4208383087151775858}
+  - component: {fileID: 5243725155580422010}
   m_Layer: 5
   m_Name: PlayButton
   m_TagString: Untagged
@@ -2973,19 +2959,31 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4208383086700574439}
-        m_MethodName: PlayGame
-        m_Mode: 1
+      - m_Target: {fileID: 5243725155580422010}
+        m_MethodName: LoadScene
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: Gameplay
           m_BoolArgument: 0
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &5243725155580422010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4208383087151775856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 799e71b46335cf148b04bd1234b6b8df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4208383087233580075
 GameObject:
   m_ObjectHideFlags: 0
@@ -3242,7 +3240,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7372463320195746071}
   m_Layer: 0
-  m_Name: MenuForMobile
+  m_Name: MainMenuMobileUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

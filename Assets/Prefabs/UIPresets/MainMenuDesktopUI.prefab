@@ -167,7 +167,7 @@ GameObject:
   - component: {fileID: 1820207700649852331}
   - component: {fileID: 1820207700649852330}
   m_Layer: 0
-  m_Name: MenuManager
+  m_Name: MainMenuUIManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -199,10 +199,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 149954a437fcc2543acc9fc8f3ace0db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvas: {fileID: 1820207700826403737}
-  mainMenu: {fileID: 1820207702404359224}
-  optionsMenu: {fileID: 1820207702008184718}
-  creditsMenu: {fileID: 1820207702417748357}
+  Canvas: {fileID: 1820207700826403737}
+  MainMenu: {fileID: 1820207702404359224}
+  OptionsMenu: {fileID: 1820207702008184718}
+  CreditsMenu: {fileID: 1820207702417748357}
 --- !u!1 &1820207700675287549
 GameObject:
   m_ObjectHideFlags: 0
@@ -914,7 +914,7 @@ GameObject:
   - component: {fileID: 1820207701127557946}
   - component: {fileID: 1820207701127557945}
   - component: {fileID: 1820207701127557944}
-  - component: {fileID: 1820207701127557948}
+  - component: {fileID: 4313896364656124053}
   m_Layer: 5
   m_Name: ExitButton
   m_TagString: Untagged
@@ -1020,19 +1020,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1820207700649852330}
+      - m_Target: {fileID: 4313896364656124053}
         m_MethodName: QuitApp
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Level01
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1820207701127557948}
-        m_MethodName: Play
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1044,7 +1033,7 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!114 &1820207701127557948
+--- !u!114 &4313896364656124053
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1053,13 +1042,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1820207701127557949}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16dafee19bab2fc498a11105ef8ee243, type: 3}
+  m_Script: {fileID: 11500000, guid: a901c0d3219548049b0002f3c262d7e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  singleSfx: 1
-  sfx: {fileID: 8300000, guid: b5834a86def23944893fb595ad8204ed, type: 3}
-  randomSfx: 0
-  sfxs: []
 --- !u!1 &1820207701221170752
 GameObject:
   m_ObjectHideFlags: 0
@@ -2274,6 +2259,7 @@ GameObject:
   - component: {fileID: 1820207701787968465}
   - component: {fileID: 1820207701787968464}
   - component: {fileID: 1820207701787968471}
+  - component: {fileID: 4179793441980350106}
   m_Layer: 5
   m_Name: PlayButton
   m_TagString: Untagged
@@ -2379,19 +2365,31 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1820207700649852330}
-        m_MethodName: PlayGame
-        m_Mode: 1
+      - m_Target: {fileID: 4179793441980350106}
+        m_MethodName: LoadScene
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Level00
+          m_StringArgument: Gameplay
           m_BoolArgument: 0
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &4179793441980350106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1820207701787968469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 799e71b46335cf148b04bd1234b6b8df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1820207701841719627
 GameObject:
   m_ObjectHideFlags: 0
@@ -2833,7 +2831,7 @@ GameObject:
   - component: {fileID: 1820207702154349628}
   - component: {fileID: 1820207702154349603}
   m_Layer: 5
-  m_Name: GameLogoi
+  m_Name: GameLogo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3636,7 +3634,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -90, y: 0}
-  m_SizeDelta: {x: 45, y: 45}
+  m_SizeDelta: {x: 45, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1820207702521424228
 CanvasRenderer:
@@ -3668,7 +3666,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 21300000, guid: edc0541b9a6aff14e989e80d045a3af7, type: 3}
   m_Type: 0
-  m_PreserveAspect: 1
+  m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -4151,7 +4149,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5684767690853642919}
   m_Layer: 0
-  m_Name: MenuForDesktop
+  m_Name: MainMenuDesktopUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

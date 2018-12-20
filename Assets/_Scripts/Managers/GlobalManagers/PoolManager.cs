@@ -17,12 +17,12 @@ public class PoolManager : MonoBehaviour
     {
         if (Instance == null) { Instance = this; }
         else { Destroy(this.gameObject); }
+
+        Pool = new Dictionary<PoolObject, List<GameObject>>();
     }
 
-    private void Start()
+    public void Initialize()
     {
-        Pool = new Dictionary<PoolObject, List<GameObject>>();
-
         foreach (var poolObj in PoolObjsSet.Items)
         {
             CreatePool(poolObj);

@@ -3,69 +3,22 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameplayManager : MonoBehaviour
+public class GameplayUIManager : MonoBehaviour
 {
-	public BoolVariable CanPlay;
-	public FloatVariable PlayerScore;
+    [Header("Game Parameters")]
+    public FloatVariable PlayerScore;
 
+    [Header("UI Components")]
 	public GameObject Hud;
 	public GameObject PauseMenu;
 	public GameObject GameOverMenu;
 	public TextMeshProUGUI FinalScoreText;
 
 
-	void Start()
-	{
-		GameStart();
-	}
+    //-----
+    #region UI Display Methods
 
-	public void GameStart()
-	{
-		ShowHud();
-
-		Time.timeScale = 1;
-		
-		PlayerScore.SetValue(0);
-		CanPlay.SetValue(true);
-	}
-
-	public void GameOver()
-	{
-		SetFinalScoreText();
-		ShowGameOverMenu();
-
-		CanPlay.SetValue(false);
-	}
-
-	public void GamePause()
-	{
-		Time.timeScale = 0;
-		CanPlay.SetValue(false);
-
-		ShowPauseMenu();
-	}
-
-	public void GameUnPause()
-	{
-		Time.timeScale = 1;
-		CanPlay.SetValue(true);
-
-		ShowHud();
-	}
-
-	public void GameRestart()
-	{
-		SceneManager.LoadSceneAsync("Gameplay");
-	}
-
-	public void GameLeave()
-	{
-		SceneManager.LoadSceneAsync("MainMenu");
-	}
-
-
-
-	public void ShowHud()
+    public void ShowHud()
     {
         Hud.SetActive(true);
 
@@ -87,10 +40,14 @@ public class GameplayManager : MonoBehaviour
 
         Hud.SetActive(false);
         PauseMenu.SetActive(false);
+
+        SetFinalScoreText();
     }
 
 	public void SetFinalScoreText()
 	{
 		FinalScoreText.text = Mathf.Floor(PlayerScore.Value) + " pts";
 	}
+
+    #endregion
 }
