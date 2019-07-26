@@ -3,21 +3,23 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public BoolVariable CanPlay;
-    public FloatVariable MyScore;
+    public BoolVariable canPlay;
+    public FloatVariable myScore;
     [Space]
-    public PoolObject[] CirclesPoolObjs;
+    public PoolManager circlesPoolManager;
+    public PoolObject[] circlesPoolObjs;
     [Space]
-    public int ScorePerClick;
+    public int scorePerClick;
     [Space]
-    public AudioClip ClickSfx;
+    public AudioSource clickAudioSource;
+    public AudioClip clickSfx;
 
     private void Update()
     {
-        if(!CanPlay.Value) return;
+        if(!canPlay.Value) return;
 
         // Increse score by time
-        MyScore.ApplyChange(Time.deltaTime * 3);
+        myScore.ApplyChange(Time.deltaTime * 3);
 
         // On Click
         if(Input.GetButtonUp("Fire1"))
@@ -26,17 +28,18 @@ public class Player : MonoBehaviour
             position = new Vector3(position.x, position.y, 0);
 
             // var circle = CircleToSpawn.GetInstance();
-            int rnd = Random.Range(0, CirclesPoolObjs.Length);
-            GameObject circle = PoolManager.Instance.GetClone(CirclesPoolObjs[rnd]);
+            int rnd = Random.Range(0, circlesPoolObjs.Length);
+            GameObject circle = circlesPoolManager.GetClone(circlesPoolObjs[rnd]);
+            // GameObject circle = null;
 
             if(circle == null) return;
             
             circle.transform.position = position;
             circle.SetActive(true);
 
-            SoundManager.Instance.PlaySfx(ClickSfx);
+            clickAudioSource.PlayOneShot(clickSfx);
 
-            MyScore.ApplyChange(+ScorePerClick);
+            myScore.ApplyChange(+scorePerClick);
         }
     }
 }

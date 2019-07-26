@@ -1,18 +1,17 @@
 ﻿using Euchromata.Core.Variables;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class GameplayUIManager : MonoBehaviour
 {
     [Header("Game Parameters")]
-    public FloatVariable PlayerScore;
+    public FloatVariable playerScore;
 
     [Header("UI Components")]
-	public GameObject Hud;
-	public GameObject PauseMenu;
-	public GameObject GameOverMenu;
-	public TextMeshProUGUI FinalScoreText;
+	public GameObject hud;
+	public GameObject pauseMenu;
+	public GameObject gameOverMenu;
+	public TextMeshProUGUI finalScoreText;
 
 
     //-----
@@ -20,33 +19,33 @@ public class GameplayUIManager : MonoBehaviour
 
     public void ShowHud()
     {
-        Hud.SetActive(true);
+        hud.SetActive(true);
 
-        PauseMenu.SetActive(false);
-        GameOverMenu.SetActive(false);
+        pauseMenu.SetActive(false);
+        gameOverMenu.SetActive(false);
     }
 
     public void ShowPauseMenu()
     {
-        PauseMenu.SetActive(true);
+        pauseMenu.SetActive(true);
 
-        Hud.SetActive(false);
-        GameOverMenu.SetActive(false);
+        hud.SetActive(false);
+        gameOverMenu.SetActive(false);
     }
 
 	public void ShowGameOverMenu()
     {
-        GameOverMenu.SetActive(true);
+        gameOverMenu.SetActive(true);
 
-        Hud.SetActive(false);
-        PauseMenu.SetActive(false);
+        hud.SetActive(false);
+        pauseMenu.SetActive(false);
 
         SetFinalScoreText();
     }
 
 	public void SetFinalScoreText()
 	{
-		FinalScoreText.text = Mathf.Floor(PlayerScore.Value) + " pts";
+		finalScoreText.text = Mathf.Floor(playerScore.Value) + " pts";
 	}
 
     #endregion

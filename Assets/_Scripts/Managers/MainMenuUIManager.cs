@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class MainMenuUIManager : MonoBehaviour
 {
@@ -7,11 +6,11 @@ public class MainMenuUIManager : MonoBehaviour
     #region Parameters
 
     [Header("UI Elements")]
-    public GameObject Canvas;
+    public GameObject canvas;
     [Space]
-    public GameObject MainMenu;
-    public GameObject OptionsMenu;
-    public GameObject CreditsMenu;
+    public GameObject mainMenu;
+    public GameObject optionsMenu;
+    public GameObject creditsMenu;
 
     #endregion
 
@@ -22,7 +21,7 @@ public class MainMenuUIManager : MonoBehaviour
     {
         Time.timeScale = 1;
 
-        Canvas.SetActive(true);
+        canvas.SetActive(true);
 
         ShowMainMenu();
     }
@@ -34,26 +33,26 @@ public class MainMenuUIManager : MonoBehaviour
 
     public void ShowMainMenu()
     {
-        MainMenu.SetActive(true);
+        mainMenu.SetActive(true);
 
-        OptionsMenu.SetActive(false);
-        CreditsMenu.SetActive(false);
+        optionsMenu.SetActive(false);
+        creditsMenu.SetActive(false);
     }
 
     public void ShowCreditsMenu()
     {
-        CreditsMenu.SetActive(true);
+        creditsMenu.SetActive(true);
 
-        MainMenu.SetActive(false);
-        OptionsMenu.SetActive(false);        
+        mainMenu.SetActive(false);
+        optionsMenu.SetActive(false);        
     }
 
     public void ShowOptionsMenu()
     {
-        OptionsMenu.SetActive(true);
+        optionsMenu.SetActive(true);
 
-        MainMenu.SetActive(false);
-        CreditsMenu.SetActive(false);
+        mainMenu.SetActive(false);
+        creditsMenu.SetActive(false);
     }
 
     #endregion

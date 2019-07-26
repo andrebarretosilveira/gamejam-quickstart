@@ -6,7 +6,9 @@ public class GameManager : MonoBehaviour
     //-----
     #region Parameters
 
-    public static GameManager Instance;
+    private static GameManager instance;
+
+    public PersistManager persistManager;
 
     #endregion
 
@@ -15,9 +17,9 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance == null)
+        if (instance == null)
         {
-            Instance = this;
+            instance = this;
             DontDestroyOnLoad(this.gameObject);
         }
         else { Destroy(this.gameObject); }
@@ -25,18 +27,14 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        PersistManager.Instance.LoadSettings();
-        //PersistManager.Instance.LoadProgress();
-
-        PoolManager.Instance.Initialize();
-
-        SoundManager.Instance.PlayMusic();
+        persistManager.LoadSettings();
+        //persistManager.LoadProgress();
     }
 
     private void OnDisable()
     {
-        PersistManager.Instance.SaveSettings();
-        // PersistManager.SaveProgress();
+        persistManager.SaveSettings();
+        // persistManager.SaveProgress();
     }
 
     #endregion

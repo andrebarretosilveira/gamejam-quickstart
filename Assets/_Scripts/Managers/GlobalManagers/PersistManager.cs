@@ -1,18 +1,16 @@
+using Euchromata.Core.Variables;
 using UnityEngine;
 
 public class PersistManager : MonoBehaviour
 {
-    public static PersistManager Instance;
-
+    public MixerGroupSetting musicSetting;
+    public MixerGroupSetting sfxSetting;
 
     //-----
     #region Core Functions
 
     private void Awake()
     {
-        if (Instance == null) { Instance = this; }
-        else { Destroy(this.gameObject); }
-
         ZPlayerPrefs.Initialize("whatislove", "b4b1d0nthurtm3");
     }
 
@@ -31,22 +29,25 @@ public class PersistManager : MonoBehaviour
 
     public void SaveSettings()
     {
-        ZPlayerPrefs.SetFloat(SoundManager.Instance.SfxVolParameter,
-            SoundManager.Instance.GetSfxVol());
+        ZPlayerPrefs.SetFloat(sfxSetting.volParam,
+            sfxSetting.Volume);
 
-        ZPlayerPrefs.SetFloat(SoundManager.Instance.MusicVolParameter,
-            SoundManager.Instance.GetMusicVol());
+        ZPlayerPrefs.SetFloat(musicSetting.volParam,
+            musicSetting.Volume);
 
         ZPlayerPrefs.Save();
     }
 
     public void LoadSettings()
     {
-        var sfxVol = ZPlayerPrefs.GetFloat(SoundManager.Instance.SfxVolParameter, 0.5f);
-        var musicVol = ZPlayerPrefs.GetFloat(SoundManager.Instance.MusicVolParameter, 0.5f);
+        var sfxVol = ZPlayerPrefs.GetFloat(sfxSetting.volParam, 0.5f);
+        var musicVol = ZPlayerPrefs.GetFloat(musicSetting.volParam, 0.5f);
 
-        SoundManager.Instance.SetSfxVol(sfxVol);
-        SoundManager.Instance.SetMusicVol(musicVol);
+        // sfxSetting.SetVolume(sfxVol);
+        // musicSetting.SetVolume(musicVol);
+
+        sfxSetting.Volume = sfxVol;
+        musicSetting.Volume = musicVol;
     }
 
     public void ClearAllData()

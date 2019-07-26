@@ -5,33 +5,34 @@ using UnityEngine;
 
 public class PoolManager : MonoBehaviour
 {
-    public static PoolManager Instance;
     [Space]
-    public PoolObjectsSet PoolObjsSet;
-    public Transform PoolObjsParent;
+    public PoolObjectsSet poolObjsSet;
+    public Transform clonesParent;
 
-    private Dictionary<PoolObject, List<GameObject>> Pool;
+    private Dictionary<PoolObject, List<GameObject>> pool;
 
 
     private void Awake()
     {
-        if (Instance == null) { Instance = this; }
-        else { Destroy(this.gameObject); }
+        // if (Instance == null) { Instance = this; WarmPools();}
+        // else { Destroy(this.gameObject); }
 
-        Pool = new Dictionary<PoolObject, List<GameObject>>();
+        WarmPools();
     }
 
-    public void Initialize()
+    public void WarmPools()
     {
-        foreach (var poolObj in PoolObjsSet.Items)
+        pool = new Dictionary<PoolObject, List<GameObject>>();
+
+        foreach (var poolObj in poolObjsSet.items)
         {
-            CreatePool(poolObj);
+            CreateObjPool(poolObj);
         }
     }
 
-    private void CreatePool(PoolObject poolObj)
+    private void CreateObjPool(PoolObject poolObj)
     {
-        if (Pool.ContainsKey(poolObj))
+        if (pool.ContainsKey(poolObj))
         {
             Debug.LogError("[PoolManager] Pool already contains this prefab (" + poolObj.name + ")");
             return;
@@ -39,28 +40,28 @@ public class PoolManager : MonoBehaviour
 
         var gameObjs = new List<GameObject>();
 
-        for (int i = 0; i < poolObj.Amount; i++)
+        for (int i = 0; i < poolObj.amount; i++)
         {
-            var go = Instantiate(poolObj.Prefab, Vector3.zero, Quaternion.identity, PoolObjsParent);
+            var go = Instantiate(poolObj.prefab, Vector3.zero, Quaternion.identity, clonesParent);
             go.SetActive(false);
             gameObjs.Add(go);
         }
 
-        Pool[poolObj] = gameObjs;
+        pool[poolObj] = gameObjs;
         
         Debug.Log("[PoolManager] Created pool for (" + poolObj.name + ") " +
-            "with (" + poolObj.Amount + ") clones");
+            "with (" + poolObj.amount + ") clones");
     }
 
     public GameObject GetClone(PoolObject poolObj)
     {
-        if (!Pool.ContainsKey(poolObj))
+        if (!pool.ContainsKey(poolObj))
         {
             Debug.LogError("[PoolManager] Pool does not contain the prefab (" + poolObj.name + ")");
             return null;
         }
 
-        foreach (var go in Pool[poolObj])
+        foreach (var go in pool[poolObj])
         {
             if (!go.activeInHierarchy)
             {
@@ -69,19 +70,20 @@ public class PoolManager : MonoBehaviour
         }
 
         // No objects available to retrieve. Grow pool?
-        if (poolObj.CanExpand)
+        if (poolObj.canExpand)
         {
             Debug.Log("[PoolManager] Growing pool for object (" + poolObj.name + ").");
 
-            var go = Instantiate(poolObj.Prefab, Vector3.zero, Quaternion.identity, PoolObjsParent);
+            var go = Instantiate(poolObj.prefab, Vector3.zero, Quaternion.identity, clonesParent);
             go.SetActive(false);
-            Pool[poolObj].Add(go);
+            pool[poolObj].Add(go);
 
             return go;
         }
 
         // No objects to retrieve and can't grow pool...
         Debug.LogWarning("[PoolManager] All objects of type (" + poolObj.name + ") are currently in use");
+        
         return null;
     }
 }

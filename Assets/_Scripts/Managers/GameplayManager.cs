@@ -1,20 +1,18 @@
 ﻿using Euchromata.Core.Events;
 using Euchromata.Core.Variables;
-using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class GameplayManager : MonoBehaviour
 {
     [Header("Game Control Parameters")]
-	public BoolVariable CanPlay;
-	public FloatVariable PlayerScore;
-    public GameEvent GameStartEvent;
+	public BoolVariable canPlay;
+	public FloatVariable playerScore;
+    public GameEvent gameStartEvent;
 
 
 	void Start()
 	{
-        GameStartEvent.Raise(); // this will lead to the invoking of "GameStart()"
+        gameStartEvent.Raise(); // this will lead to the invoking of "GameStart()"
     }
 
     //-----
@@ -24,25 +22,13 @@ public class GameplayManager : MonoBehaviour
 	{
 		Time.timeScale = 1;
 		
-		PlayerScore.SetValue(0);
-		CanPlay.SetValue(true);
+		playerScore.SetValue(0);
+		canPlay.SetValue(true);
 	}
 
 	public void GameOver()
 	{
-		CanPlay.SetValue(false);
-	}
-
-	public void GamePause()
-	{
-		Time.timeScale = 0;
-		CanPlay.SetValue(false);
-	}
-
-	public void GameUnPause()
-	{
-		Time.timeScale = 1;
-		CanPlay.SetValue(true);
+		canPlay.SetValue(false);
 	}
 
     #endregion
