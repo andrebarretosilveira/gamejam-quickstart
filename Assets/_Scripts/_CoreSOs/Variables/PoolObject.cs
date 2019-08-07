@@ -4,7 +4,7 @@ using UnityEngine.Serialization;
 
 namespace Euchromata.Core.Variables
 {
-    [CreateAssetMenu]
+    [CreateAssetMenu(menuName = "Pooling/Pool Object")]
     public class PoolObject : ScriptableObject
     {
         [FormerlySerializedAs("Set")]

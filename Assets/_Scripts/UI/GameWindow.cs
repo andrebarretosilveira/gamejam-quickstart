@@ -17,7 +17,7 @@ public class GameWindow : MonoBehaviour
     [ConditionalHide("animateScale")]
     public Vector3 scaleTo = Vector3.one;
     [ConditionalHide("animateScale")]
-    public TweenAnimations.TweenAnimationCurve scaleCurve;
+    public TweenAnimation.Curve scaleCurve;
 
     [Header("Transparency")]
     public bool animateTransparency = true;
@@ -26,7 +26,7 @@ public class GameWindow : MonoBehaviour
     [ConditionalHide("animateTransparency")]
     public float alfaTo = 1;
     [ConditionalHide("animateTransparency")]
-    public TweenAnimations.TweenAnimationCurve transparencyCurve;
+    public TweenAnimation.Curve transparencyCurve;
 
     [Header("Movement")]
     public bool animateMovement;
@@ -37,7 +37,7 @@ public class GameWindow : MonoBehaviour
     [ConditionalHide("animateMovement")]
     public Vector3 moveTo;
     [ConditionalHide("animateMovement")]
-    public TweenAnimations.TweenAnimationCurve movementCurve;
+    public TweenAnimation.Curve movementCurve;
 
     [Header("Close Window Automatically?")]
     public bool closeOnAwake = false;
@@ -131,7 +131,7 @@ public class GameWindow : MonoBehaviour
         {
             Tween.LocalScale(this.transform, scaleFrom, scaleTo,
                 animationDuration, animationDelay,
-                TweenAnimations.GetCorrespondingAnimationCurve(scaleCurve));
+                TweenAnimation.GetCorrespondingAnimationCurve(scaleCurve));
         }
         
 
@@ -139,7 +139,7 @@ public class GameWindow : MonoBehaviour
         {
             Tween.CanvasGroupAlpha(GetComponent<CanvasGroup>(), alfaFrom, alfaTo,
                 animationDuration, animationDelay,
-                TweenAnimations.GetCorrespondingAnimationCurve(transparencyCurve));
+                TweenAnimation.GetCorrespondingAnimationCurve(transparencyCurve));
         }
         
 
@@ -148,11 +148,11 @@ public class GameWindow : MonoBehaviour
             if (useAnchoredPosition)
                 Tween.AnchoredPosition(this.transform as RectTransform, moveFrom, moveTo,
                 animationDuration, animationDelay,
-                TweenAnimations.GetCorrespondingAnimationCurve(movementCurve));
+                TweenAnimation.GetCorrespondingAnimationCurve(movementCurve));
             else
                 Tween.LocalPosition(this.transform, moveFrom, moveTo,
                 animationDuration, animationDelay,
-                TweenAnimations.GetCorrespondingAnimationCurve(movementCurve));
+                TweenAnimation.GetCorrespondingAnimationCurve(movementCurve));
         }
     }
 
@@ -164,7 +164,7 @@ public class GameWindow : MonoBehaviour
         {
             Tween.LocalScale(this.transform, scaleFrom,
                 animationDuration, animationDelay,
-                TweenAnimations.GetCorrespondingAnimationCurve(scaleCurve));
+                TweenAnimation.GetCorrespondingAnimationCurve(scaleCurve));
         }
             
 
@@ -172,7 +172,7 @@ public class GameWindow : MonoBehaviour
         {
             Tween.CanvasGroupAlpha(GetComponent<CanvasGroup>(), alfaFrom,
                 animationDuration, animationDelay,
-                TweenAnimations.GetCorrespondingAnimationCurve(transparencyCurve));
+                TweenAnimation.GetCorrespondingAnimationCurve(transparencyCurve));
         }
             
 
@@ -181,11 +181,11 @@ public class GameWindow : MonoBehaviour
             if(useAnchoredPosition)
                 Tween.AnchoredPosition(this.transform as RectTransform, moveFrom,
                 animationDuration, animationDelay,
-                TweenAnimations.GetCorrespondingAnimationCurve(movementCurve));
+                TweenAnimation.GetCorrespondingAnimationCurve(movementCurve));
             else
                 Tween.LocalPosition(this.transform, moveFrom,
                 animationDuration, animationDelay,
-                TweenAnimations.GetCorrespondingAnimationCurve(movementCurve));
+                TweenAnimation.GetCorrespondingAnimationCurve(movementCurve));
         }
 
 

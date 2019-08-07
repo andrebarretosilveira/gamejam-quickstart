@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Euchromata.Core.Sets
 {
-    [CreateAssetMenu]
+    [CreateAssetMenu(menuName = "Pooling/Pool Object Set")]
     public class PoolObjectsSet : RuntimeSet<PoolObject>
     {
     }
